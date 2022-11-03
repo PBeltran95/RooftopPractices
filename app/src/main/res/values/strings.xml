@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">App1</string>
+    <string name="hello_world">Este es un ejemplo de localización</string>
+</resources>
