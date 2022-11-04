@@ -2,4 +2,6 @@
 <resources>
     <dimen name="standard_margin">14dp</dimen>
     <dimen name="myString_xxhdpi">16sp</dimen>
+    <dimen name="common_margin">16dp</dimen>
+    <dimen name="common_min_margin">8dp</dimen>
 </resources>
