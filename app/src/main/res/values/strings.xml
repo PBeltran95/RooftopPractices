@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PermissionRequestExample</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="file_txt">To File Fragment</string>
+    <string name="to_room_txt">To room Fragment</string>
+    <string name="to_retrofit_fragment_txt">To retrofit fragment</string>
+</resources>
