@@ -19,11 +19,7 @@ package com.example.android.unscramble.ui.game
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.TtsSpan
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 
 /**
  * ViewModel containing the app data and methods to process the data
@@ -38,21 +34,22 @@ class GameViewModel : ViewModel() {
         get() = _currentWordCount
 
     private val _currentScrambledWord = MutableLiveData<String>()
-    val currentScrambledWord: LiveData<Spannable> = Transformations.map(_currentScrambledWord) {
-        if (it == null) {
-            SpannableString("")
-        } else {
-            val scrambledWord = it.toString()
-            val spannable: Spannable = SpannableString(scrambledWord)
-            spannable.setSpan(
+    val currentScrambledWord: LiveData<Spannable>
+        get() = Transformations.map(_currentScrambledWord) {
+            if (it == null) {
+                SpannableString("")
+            } else {
+                val scrambledWord = it.toString()
+                val spannable: Spannable = SpannableString(scrambledWord)
+                spannable.setSpan(
                     TtsSpan.VerbatimBuilder(scrambledWord).build(),
                     0,
                     scrambledWord.length,
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE
-            )
-            spannable
+                )
+                spannable
+            }
         }
-    }
 
     // List of words used in the game
     private var wordsList: MutableList<String> = mutableListOf()
@@ -76,7 +73,6 @@ class GameViewModel : ViewModel() {
         if (wordsList.contains(currentWord)) {
             getNextWord()
         } else {
-            Log.d("Unscramble", "currentWord= $currentWord")
             _currentScrambledWord.value = String(tempWord)
             _currentWordCount.value = _currentWordCount.value?.inc()
             wordsList.add(currentWord)
@@ -120,5 +116,12 @@ class GameViewModel : ViewModel() {
             getNextWord()
             true
         } else false
+    }
+
+    private val savedStateHandle = SavedStateHandle()
+    val savedData = savedStateHandle.getLiveData<String>("VALUE")
+
+    fun setValue(value: String) {
+        savedStateHandle.set("VALUE", value)
     }
 }
